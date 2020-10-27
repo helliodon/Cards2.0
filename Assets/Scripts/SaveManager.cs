@@ -60,7 +60,7 @@ public class SaveManager : MonoBehaviour
         }
         Debug.Log("Failed to load: hasn't key :" + PlayerPrefsKey.CurrentFighter.ToString());
         
-        //TODO change this logic to sup-port first boot - name enterance etc
+        //TODO change this logic to support first boot - name enterance etc
         CurrentFighter = CreateNewFighter("Helliodon", 1);
         Save();
     }
