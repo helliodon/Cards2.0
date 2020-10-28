@@ -8,10 +8,9 @@ public class SaveManager : MonoBehaviour
 
     public enum PlayerPrefsKey
     {
-        CurrentFighter
+        CurrentFighter,
+        CareerStatisctics
     }
-
-    public FightManager.Fighter CurrentFighter;
 
     private void Awake()
     {
@@ -23,9 +22,9 @@ public class SaveManager : MonoBehaviour
 
     public void Save()
     {
-        if (CurrentFighter != null) 
+        if (GameManager.Instance.CurrentFighter != null) 
         {
-            string serializedFileId = JsonUtility.ToJson(CurrentFighter);
+            string serializedFileId = JsonUtility.ToJson(GameManager.Instance.CurrentFighter);
 
             if(!string.IsNullOrEmpty(serializedFileId))
                 PlayerPrefs.SetString(PlayerPrefsKey.CurrentFighter.ToString(), serializedFileId);
@@ -48,20 +47,34 @@ public class SaveManager : MonoBehaviour
     }
     public void Load()
     {
+        string serializedFileId = string.Empty;
         if (PlayerPrefs.HasKey(PlayerPrefsKey.CurrentFighter.ToString()))
         {
-            string serializedFileId = PlayerPrefs.GetString(PlayerPrefsKey.CurrentFighter.ToString());
+            serializedFileId = PlayerPrefs.GetString(PlayerPrefsKey.CurrentFighter.ToString());
             if (!string.IsNullOrEmpty(serializedFileId))
             {
-                CurrentFighter = JsonUtility.FromJson<FightManager.Fighter>(serializedFileId);
-                Debug.Log("Current Fighter loaded. Name is " + CurrentFighter.Name);
-                return;
+                GameManager.Instance.CurrentFighter = JsonUtility.FromJson<FightManager.Fighter>(serializedFileId);
+                Debug.Log("Current Fighter with " + GameManager.Instance.CurrentFighter.Name + " name is loaded.");
             }
         }
-        Debug.Log("Failed to load: hasn't key :" + PlayerPrefsKey.CurrentFighter.ToString());
-        
+        else
+            Debug.Log("Failed to load: hasn't key : " + PlayerPrefsKey.CurrentFighter.ToString());
+
+        serializedFileId = string.Empty;
+        if (PlayerPrefs.HasKey(PlayerPrefsKey.CareerStatisctics.ToString()))
+        {
+            serializedFileId = PlayerPrefs.GetString(PlayerPrefsKey.CareerStatisctics.ToString());
+            if (!string.IsNullOrEmpty(serializedFileId))
+            {
+                GameManager.Instance.CareerStatistics = JsonUtility.FromJson<GameManager.CareerStatisctics>(serializedFileId);
+                Debug.Log("Career Statistics loaded.");
+            }
+        }
+        else
+            Debug.Log("Failed to load: hasn't key : " + PlayerPrefsKey.CareerStatisctics.ToString());
+
         //TODO change this logic to support first boot - name enterance etc
-        CurrentFighter = CreateNewFighter("Helliodon", 1);
-        Save();
+        //GameManager.Instance.CurrentFighter = CreateNewFighter("Helliodon", 1);
+        //Save();
     }
 }

@@ -12,11 +12,17 @@ public class FightManager : MonoBehaviour
         public List<CardController> AttackCards;
         public List<CardController> DefenceCards;
         public int Health;
+        public FighterStatistics FighterStatistic;
+
+    }
+
+    [Serializable]
+    public class FighterStatistics
+    {
         public int TotalFightsFought;
         public int TotalWins;
         public int TotalLoss;
         public int TotalDraws;
-
     }
 
     public static FightManager Instance;
@@ -115,11 +121,11 @@ public class FightManager : MonoBehaviour
 
     public void StartFight()
     {
-        if(SaveManager.Instance.CurrentFighter != null)
+        if(GameManager.Instance.CurrentFighter != null)
         {
             if (PlayerTwo == null)
                 PlayerTwo = SaveManager.Instance.CreateNewFighter("NPC fighter", 1);
-            SetFight(FightType.regular, SaveManager.Instance.CurrentFighter, PlayerTwo);
+            SetFight(FightType.regular, GameManager.Instance.CurrentFighter, PlayerTwo);
         }
     }
 }
