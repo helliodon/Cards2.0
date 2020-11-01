@@ -76,6 +76,7 @@ public class FightManager : MonoBehaviour
         fighter.DefenceCards = GetCards(CardController.CardType.Defence, MOVECOUNT, null, null);
     }
 
+                                                                                       //  these parameters we need to use as a mask, to create card which fighter has opened as skills
     private List<CardController> GetCards(CardController.CardType cardtype, int count, List<CardController.AttackType> attackList = null, List<CardController.DefenceType> defenceList = null)
     {
         //TODO respect attackList and defenceList mask
