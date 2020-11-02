@@ -13,6 +13,8 @@ public class FightManager : MonoBehaviour
         public List<CardController> DefenceCards;
         public int Health;
         public FighterStatistics FighterStatistic;
+        public List<CardController.AttackType> AttackSkills;
+        public List<CardController.DefenceType> DefenceSkills;
 
     }
 

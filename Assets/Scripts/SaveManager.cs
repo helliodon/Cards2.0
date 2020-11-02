@@ -40,6 +40,9 @@ public class SaveManager : MonoBehaviour
         {
             FightManager.Fighter newFighter = new FightManager.Fighter();
             newFighter.Name = name;
+            newFighter.AttackSkills = new List<CardController.AttackType>();
+            newFighter.AttackSkills.Add(CardController.AttackType.Highkick);
+            newFighter.AttackSkills.Add(CardController.AttackType.Lowkick);
             Debug.Log("New fighter with " + name + " name is created");
             return newFighter;
         }
